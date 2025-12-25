@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
     LayoutDashboard,
     Calendar,
@@ -21,7 +21,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useAuthStore } from "@/store/auth-store";
 import { UserRole } from "@/types/auth";
-import { useRouter } from "next/navigation";
 
 interface NavItem {
     icon: React.ElementType;
@@ -63,31 +62,31 @@ const menuItems: NavItem[] = [
         roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPERVISOR],
     },
 
-     {
+    {
         icon: FileText,
         label: "Invoices & Payments",
         path: "/invoices",
         roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPERVISOR],
     },
-     {
+    {
         icon: Truck,
         label: "Pickup & Delivery",
         path: "/delivery",
         roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPERVISOR],
     },
-     {
+    {
         icon: UserCircle,
         label: "Customers",
         path: "/customers",
         roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPERVISOR],
     },
-     {
+    {
         icon: BarChart3,
         label: "Reports",
         path: "/reports",
         roles: [UserRole.ADMIN, UserRole.MANAGER, UserRole.SUPERVISOR],
     },
-     {
+    {
         icon: Settings,
         label: "Settings",
         path: "/settings",
@@ -132,25 +131,30 @@ const SideBar = ({
                 />
             )}
 
-            {/* Sidebar */}
+            {/* Sidebar Container */}
             <aside
                 className={cn(
-                    "fixed left-0 top-0 h-screen bg-card border-r border-border flex flex-col transition-all duration-300 z-50",
-                    // Mobile styles
-                    "w-64 -translate-x-full md:translate-x-0",
+                    // Base styles
+                    "bg-card border-r border-border flex flex-col z-50 transition-[width,transform] duration-300 ease-in-out",
+
+                    // Mobile: Fixed, Off-canvas
+                    "fixed top-0 left-0 h-screen w-64 -translate-x-full md:translate-x-0",
                     mobileOpen && "translate-x-0",
-                    // Desktop styles
+
+                    // Desktop: Static (In-Flow), Variable Width
+                    // We remove 'fixed' on md and let it participate in flex layout
+                    "md:static md:h-full md:flex-shrink-0",
                     collapsed ? "md:w-20" : "md:w-64"
                 )}
             >
                 {/* Logo */}
-                <div className="h-16 flex items-center justify-between px-4 border-b border-border">
-                    <Link href="/dashboard" className="flex items-center gap-2">
+                <div className="h-16 flex items-center justify-between px-4 border-b border-border shrink-0">
+                    <Link href="/dashboard" className="flex items-center gap-2 overflow-hidden">
                         <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shrink-0">
                             <Car className="w-5 h-5 text-primary-foreground" />
                         </div>
                         {(!collapsed || mobileOpen) && (
-                            <span className="font-display font-bold text-lg text-foreground">
+                            <span className="font-display font-bold text-lg text-foreground whitespace-nowrap">
                                 <span className={cn("md:block", collapsed ? "hidden" : "block")}>
                                     My<span className="text-primary">Mechanika</span>
                                 </span>
@@ -187,7 +191,7 @@ const SideBar = ({
                 </div>
 
                 {/* Navigation */}
-                <nav className="flex-1 py-4 px-3 overflow-y-auto">
+                <nav className="flex-1 py-4 px-3 overflow-y-auto overflow-x-hidden">
                     <ul className="space-y-1">
                         {filteredMenuItems.map((item) => {
                             const isActive = pathname === item.path;
@@ -202,6 +206,7 @@ const SideBar = ({
                                                 ? "bg-primary text-primary-foreground shadow-sm"
                                                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
                                         )}
+                                        title={collapsed ? item.label : undefined}
                                     >
                                         <item.icon
                                             className={cn(
@@ -213,8 +218,8 @@ const SideBar = ({
                                         {/* Label: Hidden if collapsed on desktop, visible on mobile */}
                                         <span
                                             className={cn(
-                                                "font-medium whitespace-nowrap transition-all duration-300",
-                                                collapsed ? "md:hidden" : "md:block",
+                                                "font-medium whitespace-nowrap transition-opacity duration-300",
+                                                collapsed ? "md:hidden md:opacity-0" : "md:block md:opacity-100",
                                                 "block" // Always visible on mobile
                                             )}
                                         >
@@ -228,21 +233,22 @@ const SideBar = ({
                 </nav>
 
                 {/* Footer - Logout */}
-                <div className="p-4 border-t border-border">
+                <div className="p-4 border-t border-border shrink-0">
                     <Button
                         variant="ghost"
                         onClick={handleLogout}
                         className={cn(
-                            "w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10",
+                            "w-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 overflow-hidden",
                             collapsed ? "md:px-0 md:justify-center" : "md:justify-start",
                             "justify-start" // Always left align on mobile
                         )}
+                        title={collapsed ? "Logout" : undefined}
                     >
-                        <LogOut className="w-5 h-5" />
+                        <LogOut className="w-5 h-5 shrink-0" />
                         <span
                             className={cn(
-                                "ml-2 transition-all duration-300",
-                                collapsed ? "md:hidden" : "md:block",
+                                "ml-2 transition-all duration-300 whitespace-nowrap",
+                                collapsed ? "md:hidden md:w-0" : "md:block md:w-auto",
                                 "block"
                             )}
                         >
