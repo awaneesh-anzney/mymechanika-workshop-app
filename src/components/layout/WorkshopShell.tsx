@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useUIStore } from "@/store/ui-store";
 import SideBar from "@/components/common/SideBar";
 import { Header } from "@/components/common/Header";
 
@@ -10,18 +9,26 @@ interface WorkshopShellProps {
 }
 
 export function WorkshopShell({ children }: WorkshopShellProps) {
-    const {
-        sidebarCollapsed,
-        setSidebarCollapsed,
-        mobileOpen,
-        setMobileOpen
-    } = useUIStore();
-
+    const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
         setMounted(true);
+        const storedCollapsed = localStorage.getItem("mymechanika-sidebar-collapsed");
+        if (storedCollapsed) {
+            try {
+                setSidebarCollapsed(JSON.parse(storedCollapsed));
+            } catch (e) {
+                console.error(e);
+            }
+        }
     }, []);
+
+    const handleSetCollapsed = (collapsed: boolean) => {
+        setSidebarCollapsed(collapsed);
+        localStorage.setItem("mymechanika-sidebar-collapsed", JSON.stringify(collapsed));
+    };
 
     // Default to false (expanded) for SSR matching
     const isCollapsed = mounted ? sidebarCollapsed : false;
@@ -30,7 +37,7 @@ export function WorkshopShell({ children }: WorkshopShellProps) {
         <div className="flex h-screen bg-background overflow-hidden relative">
             <SideBar
                 collapsed={isCollapsed}
-                setCollapsed={setSidebarCollapsed}
+                setCollapsed={handleSetCollapsed}
                 mobileOpen={mobileOpen}
                 setMobileOpen={setMobileOpen}
             />

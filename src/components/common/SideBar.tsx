@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuth } from "@/components/providers/auth-provider";
 import { UserRole } from "@/types/auth";
 
 interface NavItem {
@@ -109,7 +109,7 @@ const SideBar = ({
 }: SidebarProps) => {
     const pathname = usePathname();
     const router = useRouter();
-    const { user, logout } = useAuthStore();
+    const { user, logout, hydrated } = useAuth();
 
     // Filter menu items based on user role
     const filteredMenuItems = user
@@ -193,42 +193,60 @@ const SideBar = ({
                 {/* Navigation */}
                 <nav className="flex-1 py-4 px-3 overflow-y-auto overflow-x-hidden">
                     <ul className="space-y-1">
-                        {filteredMenuItems.map((item) => {
-                            const isActive = pathname === item.path;
-                            return (
-                                <li key={item.path}>
-                                    <Link
-                                        href={item.path}
-                                        onClick={() => setMobileOpen(false)}
-                                        className={cn(
-                                            "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
-                                            isActive
-                                                ? "bg-primary text-primary-foreground shadow-sm"
-                                                : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                                        )}
-                                        title={collapsed ? item.label : undefined}
-                                    >
-                                        <item.icon
+                        {!hydrated ? (
+                            // Skeleton Items
+                            Array.from({ length: 6 }).map((_, i) => (
+                                <li key={i} className="px-3 py-2.5">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-5 h-5 bg-muted/60 animate-pulse rounded shrink-0" />
+                                        <div
                                             className={cn(
-                                                "w-5 h-5 shrink-0",
-                                                isActive && "text-primary-foreground"
+                                                "h-4 w-24 bg-muted/60 animate-pulse rounded",
+                                                collapsed ? "md:hidden" : "md:block",
+                                                "block"
                                             )}
                                         />
-
-                                        {/* Label: Hidden if collapsed on desktop, visible on mobile */}
-                                        <span
-                                            className={cn(
-                                                "font-medium whitespace-nowrap transition-opacity duration-300",
-                                                collapsed ? "md:hidden md:opacity-0" : "md:block md:opacity-100",
-                                                "block" // Always visible on mobile
-                                            )}
-                                        >
-                                            {item.label}
-                                        </span>
-                                    </Link>
+                                    </div>
                                 </li>
-                            );
-                        })}
+                            ))
+                        ) : (
+                            filteredMenuItems.map((item) => {
+                                const isActive = pathname === item.path;
+                                return (
+                                    <li key={item.path}>
+                                        <Link
+                                            href={item.path}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={cn(
+                                                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
+                                                isActive
+                                                    ? "bg-primary text-primary-foreground shadow-sm"
+                                                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                                            )}
+                                            title={collapsed ? item.label : undefined}
+                                        >
+                                            <item.icon
+                                                className={cn(
+                                                    "w-5 h-5 shrink-0",
+                                                    isActive && "text-primary-foreground"
+                                                )}
+                                            />
+
+                                            {/* Label: Hidden if collapsed on desktop, visible on mobile */}
+                                            <span
+                                                className={cn(
+                                                    "font-medium whitespace-nowrap transition-opacity duration-300",
+                                                    collapsed ? "md:hidden md:opacity-0" : "md:block md:opacity-100",
+                                                    "block" // Always visible on mobile
+                                                )}
+                                            >
+                                                {item.label}
+                                            </span>
+                                        </Link>
+                                    </li>
+                                );
+                            })
+                        )}
                     </ul>
                 </nav>
 

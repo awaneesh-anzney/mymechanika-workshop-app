@@ -18,7 +18,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuth } from "@/components/providers/auth-provider";
 import { getUserCredentials } from "@/lib/dummy-users";
 
 export default function Login() {
@@ -28,8 +28,9 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showCredentials, setShowCredentials] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const { login, isLoading, error, clearError, isAuthenticated } = useAuthStore();
+  const { login, isLoading, isAuthenticated } = useAuth();
 
   // Redirect if already authenticated
   useEffect(() => {
@@ -40,15 +41,14 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    clearError();
+    setError(null);
 
     try {
       await login(email, password);
       // Redirect to dashboard on successful login
       router.push("/dashboard");
-    } catch (error) {
-      // Error is handled by the store
-      console.error("Login failed:", error);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Login failed");
     }
   };
 

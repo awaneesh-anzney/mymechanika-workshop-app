@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useAuthStore } from '@/store/auth-store';
+import { useAuth } from '@/components/providers/auth-provider';
 import { useRouter } from 'next/navigation';
 
 interface HeaderProps {
@@ -19,16 +19,13 @@ interface HeaderProps {
 }
 
 export const Header = memo(function Header({ onMenuToggle }: HeaderProps) {
-    const { user, logout } = useAuthStore();
     const router = useRouter();
+    const { user, hydrated, logout } = useAuth();
 
     const handleLogout = () => {
         logout();
         router.push('/');
     };
-
-    // removed the early return null to prevent layout shifts
-    // if (!user) return null; 
 
     return (
         <header className="sticky top-0 z-30 flex-none h-16 bg-card border-b border-border flex items-center justify-between px-4 lg:px-6 shadow-sm">
@@ -96,8 +93,8 @@ export const Header = memo(function Header({ onMenuToggle }: HeaderProps) {
                     )}
                 </Button>
 
-                {/* User Menu - Show Skeleton if loading */}
-                {user ? (
+                {/* User Menu - Show Skeleton if loading/hydrating */}
+                {hydrated && user ? (
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="gap-2 px-2 h-10">

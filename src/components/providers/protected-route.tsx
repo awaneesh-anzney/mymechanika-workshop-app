@@ -8,21 +8,20 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/store/auth-store";
+import { useAuth } from "@/components/providers/auth-provider";
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const router = useRouter();
-    const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-    const isLoading = useAuthStore((state) => state.isLoading);
+    const { isAuthenticated, isLoading, hydrated } = useAuth();
 
     useEffect(() => {
-        if (!isLoading && !isAuthenticated) {
+        if (hydrated && !isLoading && !isAuthenticated) {
             router.push("/");
         }
-    }, [isAuthenticated, isLoading, router]);
+    }, [isAuthenticated, isLoading, hydrated, router]);
 
     // Show loading state while checking authentication
-    if (isLoading || !isAuthenticated) {
+    if (!hydrated || isLoading || !isAuthenticated) {
         return (
             <div className="min-h-screen flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
