@@ -1,3 +1,4 @@
+import { SideBar } from "@/components/common/SideBar";
 
 export const metadata = {
   title: "Workshop Dashboard | MyMechanika",
@@ -10,8 +11,11 @@ export default function WorkshopLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      {children}
+    <div className="flex h-screen w-full bg-muted/40">
+      <SideBar />
+      <main className="flex flex-1 flex-col overflow-y-auto">
+        {children}
+      </main>
     </div>
-  )
+  );
 }
