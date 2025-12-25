@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,18 +15,41 @@ import {
   Wrench,
   Shield,
   Clock,
+  AlertCircle,
 } from "lucide-react";
 import Link from "next/link";
+import { useAuthStore } from "@/store/auth-store";
+import { getUserCredentials } from "@/lib/dummy-users";
 
 export default function Login() {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+  const [showCredentials, setShowCredentials] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { login, isLoading, error, clearError, isAuthenticated } = useAuthStore();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/dashboard");
+    }
+  }, [isAuthenticated, router]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-    // Simulate login
-    setTimeout(() => setIsLoading(false), 2000);
+    clearError();
+
+    try {
+      await login(email, password);
+      // Redirect to dashboard on successful login
+      router.push("/dashboard");
+    } catch (error) {
+      // Error is handled by the store
+      console.error("Login failed:", error);
+    }
   };
 
   return (
@@ -143,6 +167,60 @@ export default function Login() {
             </p>
           </div>
 
+          {/* Test Credentials Helper */}
+          <div className="bg-muted/50 border border-border rounded-lg p-4">
+            <button
+              type="button"
+              onClick={() => setShowCredentials(!showCredentials)}
+              className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors w-full"
+            >
+              <AlertCircle className="h-4 w-4" />
+              Test Credentials
+              <span className="ml-auto text-xs text-muted-foreground">
+                {showCredentials ? "Hide" : "Show"}
+              </span>
+            </button>
+            {showCredentials && (
+              <div className="mt-3 space-y-2 text-xs">
+                {getUserCredentials().map((cred) => (
+                  <div
+                    key={cred.email}
+                    className="flex items-center justify-between p-2 bg-background rounded border border-border/50"
+                  >
+                    <div>
+                      <p className="font-medium">{cred.role}</p>
+                      <p className="text-muted-foreground">{cred.email}</p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEmail(cred.email);
+                        setPassword(cred.password);
+                      }}
+                      className="text-primary hover:text-primary/80 font-medium"
+                    >
+                      Use
+                    </button>
+                  </div>
+                ))}
+                <p className="text-muted-foreground mt-2">
+                  Password for all: <code className="text-foreground">password123</code>
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Error Display */}
+          {error && (
+            <div className="bg-destructive/10 border border-destructive/50 rounded-lg p-4 flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-sm font-medium text-destructive">Login Failed</p>
+                <p className="text-sm text-destructive/80 mt-1">{error}</p>
+              </div>
+            </div>
+          )}
+
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
@@ -155,6 +233,9 @@ export default function Login() {
                     type="email"
                     placeholder="name@workshop.com"
                     className="pl-10 h-12 bg-muted/50 border-border/50 focus:border-primary"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
                   />
                 </div>
               </div>
@@ -168,6 +249,9 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     placeholder="Enter your password"
                     className="pl-10 pr-10 h-12 bg-muted/50 border-border/50 focus:border-primary"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                   <button
                     type="button"
@@ -187,7 +271,11 @@ export default function Login() {
             {/* Remember & Forgot */}
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Checkbox id="remember" />
+                <Checkbox
+                  id="remember"
+                  checked={rememberMe}
+                  onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                />
                 <Label
                   htmlFor="remember"
                   className="text-sm font-normal cursor-pointer"
