@@ -1,4 +1,5 @@
 import { SideBar } from "@/components/common/SideBar";
+import { Header } from "@/components/common/Header";
 
 export const metadata = {
   title: "Workshop Dashboard | MyMechanika",
@@ -13,9 +14,12 @@ export default function WorkshopLayout({
   return (
     <div className="flex h-screen w-full bg-muted/40">
       <SideBar />
-      <main className="flex flex-1 flex-col overflow-y-auto">
-        {children}
-      </main>
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <Header />
+        <main className="flex flex-1 flex-col overflow-y-auto bg-muted/40 p-4 lg:p-6">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }
