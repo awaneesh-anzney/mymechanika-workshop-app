@@ -1,4 +1,3 @@
-import { WorkshopShell } from "@/components/layout/WorkshopShell";
 
 export const metadata = {
   title: "Workshop Dashboard | MyMechanika",
@@ -10,5 +9,9 @@ export default function WorkshopLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <WorkshopShell>{children}</WorkshopShell>;
+  return (
+    <div>
+      {children}
+    </div>
+  )
 }
