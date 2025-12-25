@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useAuth } from "@/components/providers/auth-provider";
 import { UserMenu } from "@/components/auth/UserMenu";
 import { Car, Shield, Users, Wrench, AlertCircle, CheckCircle2 } from "lucide-react";
 import { getAccessibleRouteMetadata } from "@/lib/permissions";
@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const DashboardPage = () => {
-  const { user } = useAuthStore();
+  const { user } = useAuth();
   const searchParams = useSearchParams();
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

@@ -1,12 +1,12 @@
 "use client";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useAuth } from "@/components/providers/auth-provider";
 import { UserMenu } from "@/components/auth/UserMenu";
 import { Car, Package } from "lucide-react";
 import Link from "next/link";
 
 const InventoryPage = () => {
-  const { user } = useAuthStore();
+  const { user } = useAuth();
 
   return (
     <div className="min-h-screen bg-background">

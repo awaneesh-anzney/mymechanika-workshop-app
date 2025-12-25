@@ -5,7 +5,7 @@
 
 "use client";
 
-import { useAuthStore } from "@/store/auth-store";
+import { useAuth } from "@/components/providers/auth-provider";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,7 +20,7 @@ import { LogOut, User, Settings, Shield } from "lucide-react";
 
 export function UserMenu() {
     const router = useRouter();
-    const { user, logout } = useAuthStore();
+    const { user, logout } = useAuth();
 
     const handleLogout = () => {
         logout();
