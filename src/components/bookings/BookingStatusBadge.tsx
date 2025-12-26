@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Booking, Invoice, Mechanic } from '@/types';
 
-type Status = Booking['status'] | Invoice['status'] | Mechanic['status'];
+export type Status = Booking['status'] | Invoice['status'] | Mechanic['status'];
 
 interface StatusBadgeProps {
     status: Status;
