@@ -16,7 +16,7 @@ export default function WorkshopLayout({
       <SideBar />
       <div className="flex flex-col flex-1 overflow-hidden">
         <Header />
-        <main className="flex flex-1 flex-col overflow-y-auto bg-muted/40 p-4 lg:p-6">
+        <main className="flex flex-1 flex-col overflow-y-auto bg-muted/40 p-2">
           {children}
         </main>
       </div>

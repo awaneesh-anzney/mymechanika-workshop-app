@@ -32,6 +32,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --color-status-completed: var(--status-completed);
+  --color-status-progress: var(--status-progress);
+  --color-status-issue: var(--status-issue);
 }
 
 /* =========================
@@ -72,6 +76,10 @@
 
   --destructive: #dc2626;
 
+  --status-completed: #22c55e;
+  --status-progress: #f59e0b;
+  --status-issue: #ef4444;
+
   /* Charts */
   --chart-1: #1db954;
   --chart-2: #0f52ba;
@@ -109,6 +117,10 @@
   --ring: #1db954;
 
   --destructive: #ef4444;
+
+  --status-completed: #22c55e;
+  --status-progress: #f59e0b;
+  --status-issue: #ef4444;
 }
 
 /* =========================
