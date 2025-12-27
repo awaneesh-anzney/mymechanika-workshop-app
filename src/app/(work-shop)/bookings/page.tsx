@@ -63,7 +63,7 @@ const page = () => {
     });
   };
   return (
-    <div className='h-screen flex flex-col'>
+    <div className='flex flex-col flex-1 overflow-hidden min-h-0'>
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -161,7 +161,7 @@ const page = () => {
       </div>
 
       {/* Booking Table List  */}
-     <BookingsTable
+      <BookingsTable
         bookings={filteredBookings}
         onView={handleViewBooking}
         onAssign={handleAssignMechanic}
