@@ -20,6 +20,11 @@ import {
 import { BookingStatusBadge } from "./BookingStatusBadge";
 import { Booking } from "@/types";
 import Pagination from "./Pagination";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface BookingsTableProps {
   bookings: Booking[];
@@ -96,21 +101,38 @@ export function BookingsTable({
               </TableCell>
 
               <TableCell>
-                <div className="flex flex-wrap gap-1">
-                  {booking.services.slice(0, 2).map((service, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-0.5 bg-secondary text-xs rounded-md"
-                    >
-                      {service}
-                    </span>
-                  ))}
-                  {booking.services.length > 2 && (
-                    <span className="px-2 py-0.5 bg-secondary text-xs rounded-md text-muted-foreground">
-                      +{booking.services.length - 2}
-                    </span>
-                  )}
-                </div>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <div className="flex items-center gap-1 cursor-help">
+                      <span className="px-2 py-0.5 bg-secondary text-xs rounded-md whitespace-nowrap">
+                        {booking.services[0]}
+                      </span>
+                      {booking.services.length > 1 && (
+                        <span className="px-2 py-0.5 bg-primary/10 text-primary text-xs font-semibold rounded-md whitespace-nowrap border border-primary/20">
+                          +{booking.services.length - 1}
+                        </span>
+                      )}
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    side="top"
+                    className="max-w-[250px] p-3 bg-primary text-primary-foreground border-none shadow-2xl animate-in zoom-in-95"
+                  >
+                    <div className="space-y-2">
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-primary-foreground/70 mb-1 border-b pb-1 border-white/20">
+                        Selected Services
+                      </p>
+                      <ul className="grid gap-1.5">
+                        {booking.services.map((service, i) => (
+                          <li key={i} className="flex items-center gap-2 text-xs font-medium">
+                            <div className="h-1 w-1 rounded-full bg-white shadow-sm" />
+                            {service}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
               </TableCell>
 
               <TableCell>
