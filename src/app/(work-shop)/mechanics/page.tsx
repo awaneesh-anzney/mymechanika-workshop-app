@@ -1,16 +1,8 @@
-import React from 'react'
+import React from "react";
+import MechanicsPage from "@/components/mechanics/MechanicsPage";
 
-const page = () => {
-  return (
-    <div>
-      <div className="bg-primary font-2xl font-bold">
-        This is Mechanics Page
-      </div>
-      <div className="bg-secondary font-xl font-bold p-10">
-        Manage your workshop mechanics here.
-      </div>
-    </div>
-  )
-}
+const Page = () => {
+  return <MechanicsPage />;
+};
 
-export default page
+export default Page;
