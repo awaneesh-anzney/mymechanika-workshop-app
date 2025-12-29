@@ -51,6 +51,15 @@ export const bookings: Booking[] = [
         scheduledDate: '2024-01-15T10:00:00',
         estimatedCompletion: '2024-01-15T14:00:00',
         totalAmount: 8500,
+        subtotal: 7500,
+        taxAmount: 1350,
+        discountAmount: 350,
+        lineItems: [
+            { id: 'li1', name: 'Engine Oil', type: 'part', quantity: 1, unitPrice: 2500, description: 'Synthetic 5W-30' },
+            { id: 'li2', name: 'Oil Filter', type: 'part', quantity: 1, unitPrice: 500 },
+            { id: 'li3', name: 'AC Servicing', type: 'service', quantity: 1, unitPrice: 3500 },
+            { id: 'li4', name: 'Labor Charges', type: 'service', quantity: 1, unitPrice: 1000 }
+        ],
         createdAt: '2024-01-14T09:30:00',
     },
     {
@@ -66,6 +75,13 @@ export const bookings: Booking[] = [
         status: 'new',
         scheduledDate: '2024-01-15T11:00:00',
         totalAmount: 3200,
+        subtotal: 2800,
+        taxAmount: 504,
+        discountAmount: 104,
+        lineItems: [
+            { id: 'li5', name: 'Engine Oil', type: 'part', quantity: 1, unitPrice: 2000 },
+            { id: 'li6', name: 'Brake Inspection', type: 'service', quantity: 1, unitPrice: 800 }
+        ],
         createdAt: '2024-01-14T14:20:00',
     },
     {
@@ -83,6 +99,13 @@ export const bookings: Booking[] = [
         status: 'assigned',
         scheduledDate: '2024-01-15T13:00:00',
         totalAmount: 6800,
+        subtotal: 6000,
+        taxAmount: 1080,
+        discountAmount: 280,
+        lineItems: [
+            { id: 'li7', name: 'Engine Tuning', type: 'service', quantity: 1, unitPrice: 4500 },
+            { id: 'li8', name: 'Wheel Alignment', type: 'service', quantity: 1, unitPrice: 1500 }
+        ],
         createdAt: '2024-01-14T16:45:00',
     },
     {
@@ -101,6 +124,12 @@ export const bookings: Booking[] = [
         scheduledDate: '2024-01-15T09:00:00',
         estimatedCompletion: '2024-01-15T12:00:00',
         totalAmount: 12000,
+        subtotal: 10500,
+        taxAmount: 1890,
+        discountAmount: 390,
+        lineItems: [
+            { id: 'li9', name: 'Full Detailing Package', type: 'service', quantity: 1, unitPrice: 10500 }
+        ],
         createdAt: '2024-01-13T11:00:00',
     },
     {
@@ -116,9 +145,16 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8200,
+        taxAmount: 1476,
+        discountAmount: 176,
+        lineItems: [
+            { id: 'li10', name: 'Exide Battery', type: 'part', quantity: 1, unitPrice: 7500 },
+            { id: 'li11', name: 'Installation', type: 'service', quantity: 1, unitPrice: 700 }
+        ],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
+    {
         id: 'BK006',
         customerId: 'c6',
         customerName: 'Karthik ',
@@ -131,9 +167,13 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
+    {
         id: 'BK007',
         customerId: 'c5',
         customerName: 'Karthik Nair',
@@ -146,9 +186,13 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
+    {
         id: 'BK008',
         customerId: 'c5',
         customerName: 'Karthik Nair',
@@ -161,9 +205,13 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
+    {
         id: 'BK009',
         customerId: 'c5',
         customerName: 'Karthik Nair',
@@ -176,10 +224,14 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
-        id: 'BK0010',
+    {
+        id: 'BK010',
         customerId: 'c5',
         customerName: 'Karthik Nair',
         customerPhone: '+91 55443 22110',
@@ -191,10 +243,14 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
-        id: 'BK0011',
+    {
+        id: 'BK011',
         customerId: 'c5',
         customerName: 'Karthik Nair',
         customerPhone: '+91 55443 22110',
@@ -206,10 +262,14 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
-        id: 'BK0012',
+    {
+        id: 'BK012',
         customerId: 'c5',
         customerName: 'Karthik Nair',
         customerPhone: '+91 55443 22110',
@@ -221,10 +281,14 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
-     {
-        id: 'BK005',
+    {
+        id: 'BK013',
         customerId: 'c5',
         customerName: 'Karthik Nair',
         customerPhone: '+91 55443 22110',
@@ -236,21 +300,10 @@ export const bookings: Booking[] = [
         status: 'issue',
         scheduledDate: '2024-01-15T15:00:00',
         totalAmount: 9500,
-        createdAt: '2024-01-14T18:30:00',
-    },
-     {
-        id: 'BK0013',
-        customerId: 'c5',
-        customerName: 'Karthik Nair',
-        customerPhone: '+91 55443 22110',
-        carMake: 'Tata',
-        carModel: 'Nexon',
-        carYear: '2023',
-        carPlate: 'KA-05-IJ-7890',
-        services: ['Battery Replacement'],
-        status: 'issue',
-        scheduledDate: '2024-01-15T15:00:00',
-        totalAmount: 9500,
+        subtotal: 8500,
+        taxAmount: 1530,
+        discountAmount: 530,
+        lineItems: [],
         createdAt: '2024-01-14T18:30:00',
     },
 ];
