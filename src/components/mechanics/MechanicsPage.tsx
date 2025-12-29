@@ -91,12 +91,12 @@ export function MechanicsPage() {
         </div>
 
         {/* Search + Add button row */}
-        <div className="flex items-center gap-4">
+        <div className="flex justify-between gap-4">
           <Input
             placeholder="Search mechanics..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-card border border-border transition-all duration-200 focus-visible:ring-accent focus-visible:ring-1 hover:shadow-sm hover:border-accent/60"
+            className="w-1/3 bg-card border border-border transition-all duration-200 focus-visible:ring-accent focus-visible:ring-1 hover:shadow-sm hover:border-accent/60"
           />
           <Button className="gap-2">
             <Plus className="w-4 h-4" />
