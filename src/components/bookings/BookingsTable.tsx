@@ -77,7 +77,12 @@ export function BookingsTable({
               style={{ animationDelay: `${index * 50}ms` }}
             >
               <TableCell>
-                <span className="font-medium">{booking.id}</span>
+                <button
+                  onClick={() => onView?.(booking)}
+                  className="font-medium hover:text-primary hover:underline transition-colors"
+                >
+                  {booking.id}
+                </button>
               </TableCell>
 
               <TableCell>

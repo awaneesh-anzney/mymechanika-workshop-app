@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Plus, Search, Filter, Download } from 'lucide-react'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,6 +24,7 @@ const STATUS_OPTIONS: { label: string; value: Status }[] = [
 ];
 
 const page = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatuses, setSelectedStatuses] = useState<Status[]>([]);
 
@@ -46,9 +48,7 @@ const page = () => {
   };
 
   const handleViewBooking = (booking: any) => {
-    toast('View Booking', {
-      description: `Opening details for ${booking.id}`,
-    });
+    router.push(`/bookings/${booking.id}`);
   };
 
   const handleAssignMechanic = (booking: any) => {
@@ -62,6 +62,7 @@ const page = () => {
       description: `Creating invoice for ${booking.id}`,
     });
   };
+
   return (
     <div className='flex flex-col flex-1 overflow-hidden min-h-0'>
       <div className="flex flex-col sm:flex-row gap-4 mb-6">
@@ -160,7 +161,6 @@ const page = () => {
         </div>
       </div>
 
-      {/* Booking Table List  */}
       <BookingsTable
         bookings={filteredBookings}
         onView={handleViewBooking}
