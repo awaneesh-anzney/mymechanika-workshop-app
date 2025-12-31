@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Plus, Phone, Mail, MoreHorizontal, Star, Wrench } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function getInitials(name: string) {
   const parts = name.split(" ");
@@ -51,6 +53,8 @@ function getStatusBadge(status: Mechanic["status"]) {
 export function MechanicsPage() {
   const [search, setSearch] = useState("");
 
+const router = useRouter();
+   
   const filteredMechanics = useMemo(
     () =>
       mechanics.filter((m) =>
@@ -126,8 +130,13 @@ export function MechanicsPage() {
                 className="animate-fade-in transition-colors duration-150 hover:bg-muted/40"
                 style={{ animationDelay: `${index * 50}ms` }}
               >
-                <TableCell>
-                  <span className="text-xs font-medium text-muted-foreground">{m.id}</span>
+                <TableCell 
+                onClick={() => router.push(`/mechanics/${m.id}`)}
+                  className="text-xs font-medium text-accent hover:underline"
+                >
+                   
+                    {m.id}
+                  
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-3">
