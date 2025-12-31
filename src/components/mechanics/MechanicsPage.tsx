@@ -53,8 +53,8 @@ function getStatusBadge(status: Mechanic["status"]) {
 export function MechanicsPage() {
   const [search, setSearch] = useState("");
 
-const router = useRouter();
-   
+  const router = useRouter();
+
   const filteredMechanics = useMemo(
     () =>
       mechanics.filter((m) =>
@@ -127,16 +127,14 @@ const router = useRouter();
             {filteredMechanics.map((m, index) => (
               <TableRow
                 key={m.id}
-                className="animate-fade-in transition-colors duration-150 hover:bg-muted/40"
+                className="animate-fade-in transition-colors duration-150 hover:bg-muted/40 cursor-pointer"
                 style={{ animationDelay: `${index * 50}ms` }}
-              >
-                <TableCell 
                 onClick={() => router.push(`/mechanics/${m.id}`)}
+              >
+                <TableCell
                   className="text-xs font-medium text-accent hover:underline"
                 >
-                   
-                    {m.id}
-                  
+                  {m.id}
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center gap-3">
