@@ -39,11 +39,11 @@ const sidebarItems = [
         href: "/bookings",
         icon: CalendarDays,
     },
-    {
-        title: "Services",
-        href: "/services",
-        icon: Wrench,
-    },
+    // {
+    //     title: "Services",
+    //     href: "/services",
+    //     icon: Wrench,
+    // },
     {
         title: "Mechanics",
         href: "/mechanics",
