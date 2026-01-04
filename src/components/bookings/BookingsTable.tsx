@@ -109,7 +109,7 @@ export function BookingsTable({
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <div className="flex items-center gap-1 cursor-help">
-                      <span className="px-2 py-0.5 bg-secondary text-xs rounded-md whitespace-nowrap">
+                      <span className="px-2 py-0.5 bg-secondary text-white text-xs rounded-md whitespace-nowrap">
                         {booking.services[0]}
                       </span>
                       {booking.services.length > 1 && (
