@@ -51,23 +51,9 @@ const Inventory = () => {
 
 
     return (
-        <div>
-            {/* Page Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                <div>
-                    <h1 className="text-2xl font-bold text-foreground">Inventory</h1>
-                    <p className="text-muted-foreground mt-1">
-                        Manage spare parts and supplies stock
-                    </p>
-                </div>
-                <Button className="gap-2" onClick={handleAddItem}>
-                    <Plus className="w-4 h-4" />
-                    Add Item
-                </Button>
-            </div>
-
+        <div className='flex flex-col flex-1 overflow-hidden min-h-0'>
             {/* Stats Row */}
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
                 <div className="bg-card rounded-lg border border-border p-4">
                     <div className="flex items-center gap-3">
                         <Package className="w-8 h-8 text-accent" />
@@ -117,7 +103,7 @@ const Inventory = () => {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+            <div className="flex flex-col sm:flex-row gap-4 mb-2 justify-between">
                 <div className="relative flex-1 max-w-md">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
@@ -144,6 +130,12 @@ const Inventory = () => {
                         <Download className="w-4 h-4" />
                         Export
                     </Button>
+                </div>
+                <div>
+                <Button className="gap-2" onClick={handleAddItem}>
+                    <Plus className="w-4 h-4" />
+                    Add Item
+                </Button>
                 </div>
             </div>
 

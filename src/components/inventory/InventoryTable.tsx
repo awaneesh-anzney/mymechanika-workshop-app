@@ -45,9 +45,12 @@ const InventoryTable: React.FC<InventoryTableProps> = ({ items, onRestock }) => 
     }
 
     return (
-        <div className="rounded-md border bg-card overflow-hidden">
-            <Table>
-                <TableHeader className="bg-muted/50">
+        <div className="flex flex-col flex-1 bg-card rounded-lg border border-border overflow-hidden">
+            <Table
+            containerClassName="flex-1 overflow-auto"
+            className="border-separate border-spacing-0"
+            >
+                <TableHeader className="sticky top-0 z-10 bg-card shadow-sm">
                     <TableRow>
                         <TableHead>Item Name</TableHead>
                         <TableHead>SKU</TableHead>
