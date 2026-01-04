@@ -22,6 +22,15 @@ export interface DashboardStats {
     revenueMonth: number;
 }
 
+export interface LineItem {
+    id: string;
+    name: string;
+    description?: string;
+    type: 'service' | 'part' | 'other';
+    quantity: number;
+    unitPrice: number;
+}
+
 export interface Booking {
     id: string;
     customerId: string;
@@ -38,6 +47,10 @@ export interface Booking {
     scheduledDate: string;
     estimatedCompletion?: string;
     totalAmount: number;
+    subtotal: number;
+    taxAmount: number;
+    discountAmount: number;
+    lineItems: LineItem[];
     createdAt: string;
 }
 
