@@ -4,26 +4,11 @@ import { useMemo, useState } from "react";
 import { bookings } from "@/data/mockData";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
-import { Phone, Mail, History } from "lucide-react";
-import Link from "next/link";
-
-interface AggregatedCustomer {
-  id: string;
-  name: string;
-  phone: string;
-  totalVisits: number;
-  totalSpent: number;
-  vehicles: string[];
-}
+import {
+  CustomersTable,
+  AggregatedCustomer,
+} from "@/components/customer/CustomersTable";
 
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-IN", {
@@ -88,7 +73,7 @@ export function CustomersPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* Header */}
+      {/* Header: stats + search + primary action */}
       <div className="flex flex-col gap-2">
         {/* Stats + Add button */}
         <div className="flex flex-col gap-4">
@@ -126,86 +111,13 @@ export function CustomersPage() {
       </div>
 
       {/* Customers table */}
-      <div className="bg-card rounded-xl border border-border overflow-hidden">
-        <Table>
-          <TableHeader className="bg-muted/40">
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Phone</TableHead>
-              <TableHead>Total Visits</TableHead>
-              <TableHead>Total Spent</TableHead>
-              <TableHead>Registered Vehicles</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredCustomers.map((c) => (
-              <TableRow key={c.id} className="hover:bg-muted/40">
-                {/* ID column */}
-                <TableCell className="w-[10%] align-middle">
-                  <Link
-                    href={`/customers/${c.id}`}
-                    className="text-xs font-medium text-accent hover:underline truncate max-w-[80px]"
-                  >
-                    {c.id}
-                  </Link>
-                </TableCell>
-                {/* Customer name */}
-                <TableCell className="w-[24%] align-middle">
-                  <span className="font-medium text-foreground truncate max-w-[220px]">
-                    {c.name}
-                  </span>
-                </TableCell>
-                {/* Phone */}
-                <TableCell className="w-[20%] align-middle">
-                  <span className="text-sm text-foreground truncate max-w-[220px]">
-                    {c.phone}
-                  </span>
-                </TableCell>
-                {/* Visits */}
-                <TableCell className="w-[12%] text-right align-middle">
-                  <span className="font-semibold">{c.totalVisits}</span>
-                </TableCell>
-                {/* Spent */}
-                <TableCell className="w-[14%] text-right align-middle">
-                  <span className="font-semibold text-emerald-600">
-                    {formatCurrency(c.totalSpent)}
-                  </span>
-                </TableCell>
-                {/* Vehicles */}
-                <TableCell className="w-[20%] align-middle">
-                  <div className="flex flex-wrap gap-1">
-                    {c.vehicles.map((v) => (
-                      <span
-                        key={v}
-                        className="px-2 py-0.5 rounded-full border border-border bg-muted/60 text-xs"
-                      >
-                        {v}
-                      </span>
-                    ))}
-                  </div>
-                </TableCell>
-                {/* Actions */}
-                <TableCell className="w-[10%] align-middle">
-                  <div className="flex items-center justify-end gap-2">
-                    <Button variant="outline" size="sm" className="gap-1">
-                      <History className="w-4 h-4" />
-                      History
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" title="Call">
-                      <Phone className="w-4 h-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="h-8 w-8" title="Email">
-                      <Mail className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
+      <CustomersTable
+        customers={filteredCustomers}
+        onViewCustomer={(customer: AggregatedCustomer) => {
+          // Placeholder for future customer details route / drawer
+          console.log("view customer", customer.id);
+        }}
+      />
     </div>
   );
 }
