@@ -61,7 +61,7 @@ export function MechanicsTable({ mechanics }: MechanicsTableProps) {
       >
         <TableHeader className="sticky top-0 z-10 bg-card shadow-sm">
           <TableRow className="hover:bg-transparent border-b">
-            <TableHead className="bg-card w-[80px]">ID</TableHead>
+            <TableHead className="bg-card">ID</TableHead>
             <TableHead className="bg-card">Mechanic</TableHead>
             <TableHead className="bg-card">Specialization</TableHead>
             <TableHead className="bg-card">Status</TableHead>

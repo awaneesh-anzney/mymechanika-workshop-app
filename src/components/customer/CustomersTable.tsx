@@ -18,7 +18,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Phone, Mail, History } from "lucide-react";
-import Link from "next/link";
+ 
 import { useRouter } from "next/navigation";
 
 export interface CustomersTableProps {
@@ -36,7 +36,7 @@ export function CustomersTable({ customers, onViewCustomer }: CustomersTableProp
         containerClassName="flex-1 overflow-auto"
         className="border-separate border-spacing-0"
       >
-        <TableHeader className="sticky top-0 z-10 bg-card shadow-sm">
+        {/* <TableHeader className="sticky top-0 z-10 bg-card shadow-sm">
           <TableRow className="hover:bg-transparent border-b">
             <TableHead className="bg-card w-[10%]">ID</TableHead>
             <TableHead className="bg-card w-[24%]">Customer</TableHead>
@@ -45,6 +45,18 @@ export function CustomersTable({ customers, onViewCustomer }: CustomersTableProp
             <TableHead className="bg-card w-[14%] text-right">Total Spent</TableHead>
             <TableHead className="bg-card w-[20%]">Registered Vehicles</TableHead>
             <TableHead className="bg-card w-[10%] text-right">Actions</TableHead>
+          </TableRow>
+        </TableHeader> */}
+
+         <TableHeader className="sticky top-0 z-10 bg-card shadow-sm">
+          <TableRow className="hover:bg-transparent border-b">
+            <TableHead className="bg-card"> Customer ID</TableHead>
+            <TableHead className="bg-card"> Name</TableHead>
+            <TableHead className="bg-card"> Phone</TableHead>
+            <TableHead className="bg-card"> Total Visits</TableHead>
+            <TableHead className="bg-card"> Total Spent</TableHead>
+            <TableHead className="bg-card"> Vehicles</TableHead>
+            <TableHead className="text-right bg-card">Actions</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -56,43 +68,43 @@ export function CustomersTable({ customers, onViewCustomer }: CustomersTableProp
               style={{ animationDelay: `${index * 50}ms` }}
             >
               {/* ID column */}
-              <TableCell className="w-[10%] align-middle">
+              <TableCell>
                 <button
                   onClick={() => router.push(`/customers/${c.id}`)}
-                  className="text-xs font-medium text-accent hover:underline truncate max-w-[80px]"
+                  className="font-medium hover:text-primary hover:underline transition-colors"
                 >
                   {c.id}
                 </button>
               </TableCell>
 
               {/* Customer name */}
-              <TableCell className="w-[24%] align-middle">
-                <span className="font-medium text-foreground truncate max-w-[220px]">
+              <TableCell>
+                <span  className=" font-semibold text-xs text-primary text-muted-foreground">
                   {c.name}
                 </span>
               </TableCell>
 
               {/* Phone */}
-              <TableCell className="w-[20%] align-middle">
-                <span className="text-sm text-foreground truncate max-w-[220px]">
+              <TableCell>
+                <span className="text-sm text-foreground truncate ">
                   {c.phone}
                 </span>
               </TableCell>
 
               {/* Visits */}
-              <TableCell className="w-[12%] text-right align-middle">
-                <span className="font-semibold">{c.totalVisits}</span>
+              <TableCell>
+                <span className="font-semibold  text-center">{c.totalVisits}</span>
               </TableCell>
 
               {/* Spent */}
-              <TableCell className="w-[14%] text-right align-middle">
-                <span className="font-semibold text-emerald-600">
+              <TableCell>
+                <span className="font-semibold text-emerald-600 text-center">
                   {c.totalSpent.toLocaleString("en-IN")}
                 </span>
               </TableCell>
 
               {/* Vehicles */}
-              <TableCell className="w-[20%] align-middle">
+              <TableCell>
                 <div className="flex flex-wrap gap-1">
                   {c.vehicles.map((v: string) => (
                     <span
